@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardiovascular Risk Assessment - Patient Input</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>CARDIOVASCULAR RISK ASSESSMENT SYSTEM</h1>
+                <p class="subtitle">Professional Medical Diagnostic Report</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Form Section -->
+            <section class="form-section" id="formSection">
+                <div class="form-card">
+                    <h2>Patient Information Form</h2>
+                    <p class="form-subtitle">Enter patient data for cardiovascular risk assessment</p>
+                    
+                    <form id="patientForm" class="form-grid">
+                        <!-- Personal Information -->
+                        <div class="form-group">
+                            <label for="name">Patient Name *</label>
+                            <input type="text" id="name" name="name" placeholder="e.g., Jane Doe" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="age">Age (years) *</label>
+                            <input type="number" id="age" name="age" min="1" max="120" placeholder="23" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sex">Gender *</label>
+                            <select id="sex" name="sex" required>
+                                <option value="">-- Select --</option>
+                                <option value="0">Female</option>
+                                <option value="1">Male</option>
+                            </select>
+                        </div>
+
+                        <!-- Height & Weight -->
+                        <div class="form-group">
+                            <label for="height">Height (cm) *</label>
+                            <input type="number" id="height" name="height" min="100" max="250" placeholder="177" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="weight">Weight (kg) *</label>
+                            <input type="number" id="weight" name="weight" min="30" max="300" placeholder="78" required>
+                        </div>
+
+                        <!-- Reported Symptoms -->
+                        <div class="form-group full-width">
+                            <label>Reported Symptoms</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="symptoms" value="Chest Pain"> Chest Pain
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="symptoms" value="Shortness of Breath"> Shortness of Breath
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="symptoms" value="Pain (Jaw/Arm/Neck/Back)"> Pain (Jaw/Arm/Neck/Back)
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="symptoms" value="Body Pain"> Body Pain
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="symptoms" value="Nausea"> Nausea
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="symptoms" value="Nose Bleeds"> Nose Bleeds
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="symptoms" value="Edema"> Edema
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Preliminary Questions -->
+                        <div class="form-group">
+                            <label for="pregnant">Pregnant? *</label>
+                            <select id="pregnant" name="pregnant" required>
+                                <option value="">-- Select --</option>
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="underlying_sickness">Underlying Sickness? *</label>
+                            <select id="underlying_sickness" name="underlying_sickness" required>
+                                <option value="">-- Select --</option>
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="overweight">Overweight? *</label>
+                            <select id="overweight" name="overweight" required>
+                                <option value="">-- Select --</option>
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="injury">Injury? *</label>
+                            <select id="injury" name="injury" required>
+                                <option value="">-- Select --</option>
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="symptoms_duration">Symptoms Duration *</label>
+                            <select id="symptoms_duration" name="symptoms_duration" required>
+                                <option value="">-- Select --</option>
+                                <option value="Less than 1 week">Less than 1 week</option>
+                                <option value="1-2 weeks">1-2 weeks</option>
+                                <option value="2 weeks or more">2 weeks or more</option>
+                            </select>
+                        </div>
+
+                        <!-- Chest Pain Type -->
+                        <div class="form-group">
+                            <label for="cp">Chest Pain Type *</label>
+                            <select id="cp" name="cp" required>
+                                <option value="">-- Select --</option>
+                                <option value="0">Typical Angina</option>
+                                <option value="1">Atypical Angina</option>
+                                <option value="2">Non-anginal Pain</option>
+                                <option value="3">Asymptomatic</option>
+                            </select>
+                        </div>
+
+                        <!-- Blood Pressure -->
+                        <div class="form-group">
+                            <label for="trestbps">Resting BP (mmHg) *</label>
+                            <input type="number" id="trestbps" name="trestbps" min="60" max="200" placeholder="130" required>
+                        </div>
+
+                        <!-- Cholesterol -->
+                        <div class="form-group">
+                            <label for="chol">Cholesterol (mg/dL) *</label>
+                            <input type="number" id="chol" name="chol" min="100" max="400" placeholder="240" required>
+                        </div>
+
+                        <!-- Fasting Blood Sugar -->
+                        <div class="form-group">
+                            <label for="fbs">Fasting Blood Sugar > 120 mg/dL *</label>
+                            <select id="fbs" name="fbs" required>
+                                <option value="">-- Select --</option>
+                                <option value="0">No (Normal)</option>
+                                <option value="1">Yes (High)</option>
+                            </select>
+                        </div>
+
+                        <!-- ECG Results -->
+                        <div class="form-group">
+                            <label for="restecg">Resting ECG Results *</label>
+                            <select id="restecg" name="restecg" required>
+                                <option value="">-- Select --</option>
+                                <option value="0">Normal</option>
+                                <option value="1">ST-T Abnormality</option>
+                                <option value="2">LV Hypertrophy</option>
+                            </select>
+                        </div>
+
+                        <!-- Max Heart Rate -->
+                        <div class="form-group">
+                            <label for="thalach">Max Heart Rate (bpm) *</label>
+                            <input type="number" id="thalach" name="thalach" min="60" max="220" placeholder="150" required>
+                        </div>
+
+                        <!-- Exercise Induced Angina -->
+                        <div class="form-group">
+                            <label for="exang">Exercise-Induced Angina *</label>
+                            <select id="exang" name="exang" required>
+                                <option value="">-- Select --</option>
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+
+                        <!-- ST Depression -->
+                        <div class="form-group">
+                            <label for="oldpeak">ST Depression (Induced by Exercise) *</label>
+                            <input type="number" id="oldpeak" name="oldpeak" min="0" max="10" step="0.1" placeholder="1.5" required>
+                        </div>
+
+                        <!-- ST Slope -->
+                        <div class="form-group">
+                            <label for="slope">ST Segment Slope *</label>
+                            <select id="slope" name="slope" required>
+                                <option value="">-- Select --</option>
+                                <option value="0">Upsloping</option>
+                                <option value="1">Flat</option>
+                                <option value="2">Downsloping</option>
+                            </select>
+                        </div>
+
+                        <!-- Major Vessels -->
+                        <div class="form-group">
+                            <label for="ca">Major Vessels (0-3) *</label>
+                            <select id="ca" name="ca" required>
+                                <option value="">-- Select --</option>
+                                <option value="0">0 vessels</option>
+                                <option value="1">1 vessel</option>
+                                <option value="2">2 vessels</option>
+                                <option value="3">3 vessels</option>
+                            </select>
+                        </div>
+
+                        <!-- Thalassemia -->
+                        <div class="form-group">
+                            <label for="thal">Thalassemia Type *</label>
+                            <select id="thal" name="thal" required>
+                                <option value="">-- Select --</option>
+                                <option value="1">Normal</option>
+                                <option value="2">Fixed Defect</option>
+                                <option value="3">Reversible Defect</option>
+                            </select>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn-submit" id="submitBtn">
+                            <span>Generate Medical Report</span>
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Loading & Error Section -->
+            <div id="loadingSection" class="loading-section" style="display: none;">
+                <div class="spinner"></div>
+                <p>Analyzing patient data and generating report...</p>
+            </div>
+
+            <div id="errorSection" class="error-section" style="display: none;">
+                <p id="errorMessage"></p>
+                <button onclick="location.reload()">Try Again</button>
+            </div>
+
+            <!-- Report Section -->
+            <div id="reportContainer" style="display: none;"></div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>WARNING: This is an AI-powered assessment tool for informational purposes only. Always consult with healthcare professionals for medical advice and diagnosis.</p>
+        </footer>
+    </div>
+                            <label for="exang">Exercise-Induced Angina *</label>
+                            <select id="exang" name="exang" required>
+                                <option value="">-- Select --</option>
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+
+                        <!-- ST Depression -->
+                        <div class="form-group">
+                            <label for="oldpeak">ST Depression (Induced by Exercise) *</label>
+                            <input type="number" id="oldpeak" name="oldpeak" min="0" max="10" step="0.1" placeholder="e.g., 1.5" required>
+                        </div>
+
+                        <!-- ST Slope -->
+                        <div class="form-group">
+                            <label for="slope">ST Segment Slope *</label>
+                            <select id="slope" name="slope" required>
+                                <option value="">-- Select --</option>
+                                <option value="0">Upsloping</option>
+                                <option value="1">Flat</option>
+                                <option value="2">Downsloping</option>
+                            </select>
+                        </div>
+
+                        <!-- Major Vessels -->
+                        <div class="form-group">
+                            <label for="ca">Major Vessels (0-3) *</label>
+                            <select id="ca" name="ca" required>
+                                <option value="">-- Select --</option>
+                                <option value="0">0 vessels</option>
+                                <option value="1">1 vessel</option>
+                                <option value="2">2 vessels</option>
+                                <option value="3">3 vessels</option>
+                            </select>
+                        </div>
+
+                        <!-- Thalassemia -->
+                        <div class="form-group">
+                            <label for="thal">Thalassemia Type *</label>
+                            <select id="thal" name="thal" required>
+                                <option value="">-- Select --</option>
+                                <option value="1">Normal</option>
+                                <option value="2">Fixed Defect</option>
+                                <option value="3">Reversible Defect</option>
+                            </select>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn-submit" id="submitBtn">
+                            <span>Generate Report</span>
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Loading & Error Section -->
+            <div id="loadingSection" class="loading-section" style="display: none;">
+                <div class="spinner"></div>
+                <p>Analyzing patient data and generating report...</p>
+            </div>
+
+            <div id="errorSection" class="error-section" style="display: none;">
+                <p id="errorMessage"></p>
+                <button onclick="location.reload()">Try Again</button>
+            </div>
+
+            <!-- Report Section -->
+            <div id="reportContainer" style="display: none;"></div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>WARNING: This is an AI-powered assessment tool for informational purposes only. Always consult with healthcare professionals for medical advice and diagnosis.</p>
+        </footer>
+    </div>
+
+    <script>
+        const form = document.getElementById('patientForm');
+        const loadingSection = document.getElementById('loadingSection');
+        const errorSection = document.getElementById('errorSection');
+        const reportContainer = document.getElementById('reportContainer');
+        const errorMessage = document.getElementById('errorMessage');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Collect form data
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+            
+            // Handle multiple symptoms
+            const selectedSymptoms = Array.from(document.querySelectorAll('input[name="symptoms"]:checked'))
+                .map(checkbox => checkbox.value);
+            data.symptoms = selectedSymptoms.join(', ') || 'None reported';
+
+            // Show loading
+            loadingSection.style.display = 'block';
+            errorSection.style.display = 'none';
+            reportContainer.style.display = 'none';
+
+            try {
+                // Send to backend
+                const response = await fetch('/api/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                loadingSection.style.display = 'none';
+
+                if (result.success) {
+                    // Hide form and display report
+                    document.getElementById('formSection').style.display = 'none';
+                    displayReport(result.report);
+                    reportContainer.style.display = 'block';
+                    
+                    // Scroll to report
+                    setTimeout(() => {
+                        reportContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 100);
+                } else {
+                    throw new Error(result.error || 'Unknown error');
+                }
+            } catch (error) {
+                loadingSection.style.display = 'none';
+                errorMessage.textContent = `Error: ${error.message}`;
+                errorSection.style.display = 'block';
+            }
+        });
+
+        function displayReport(report) {
+            try {
+                // Provide defaults for any missing fields
+                report = {
+                    name: report.name || 'Patient',
+                    age: report.age || 'N/A',
+                    gender: report.gender || 'N/A',
+                    height: report.height || 'N/A',
+                    weight: report.weight || 'N/A',
+                    symptoms: report.symptoms || 'None reported',
+                    pregnant: report.pregnant || 'Unknown',
+                    underlying_sickness: report.underlying_sickness || 'Unknown',
+                    overweight: report.overweight || 'Unknown',
+                    injury: report.injury || 'Unknown',
+                    symptoms_duration: report.symptoms_duration || 'Unknown',
+                    risk_percentage: report.risk_percentage || 0,
+                    risk_level: report.risk_level || 'Unknown',
+                    risk_color: report.risk_color || '#999',
+                    clinical_measurements: report.clinical_measurements || [],
+                    possible_diagnosis: report.possible_diagnosis || [],
+                    suggested_tests: report.suggested_tests || [],
+                    risk_factors: report.risk_factors || [],
+                    protective_factors: report.protective_factors || [],
+                    recommendations: report.recommendations || []
+                };
+            const html = `
+                <div class="medical-report">
+                    <!-- Report Header -->
+                    <div class="report-title-section">
+                        <h1>CARDIOVASCULAR HEALTH AND DIAGNOSIS REPORT</h1>
+                    </div>
+
+                    <!-- Patient Information -->
+                    <div class="patient-info-section">
+                        <div class="patient-info-left">
+                            <div class="info-item">
+                                <span class="info-label">Name:</span>
+                                <span class="info-value">${report.name}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Age:</span>
+                                <span class="info-value">${report.age}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Gender:</span>
+                                <span class="info-value">${report.gender}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Height:</span>
+                                <span class="info-value">${report.height}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Weight:</span>
+                                <span class="info-value">${report.weight}</span>
+                            </div>
+                        </div>
+                        <div class="patient-info-right">
+                            <h3>Reported Symptoms</h3>
+                            <ul class="symptoms-list">
+                                ${report.symptoms ? report.symptoms.split(',').map(s => `<li>${s.trim()}</li>`).join('') : '<li>None reported</li>'}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Preliminary Questions -->
+                    <div class="preliminary-section">
+                        <h3>Preliminary Questions:</h3>
+                        <div class="preliminary-grid">
+                            <div class="preliminary-item">
+                                <span class="label">Pregnant:</span>
+                                <span class="value">${report.pregnant}</span>
+                            </div>
+                            <div class="preliminary-item">
+                                <span class="label">Underlying Sickness:</span>
+                                <span class="value">${report.underlying_sickness}</span>
+                            </div>
+                            <div class="preliminary-item">
+                                <span class="label">Overweight:</span>
+                                <span class="value">${report.overweight}</span>
+                            </div>
+                            <div class="preliminary-item">
+                                <span class="label">Injury:</span>
+                                <span class="value">${report.injury}</span>
+                            </div>
+                            <div class="preliminary-item">
+                                <span class="label">Symptoms Duration:</span>
+                                <span class="value">${report.symptoms_duration}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Disease-Symptom Match Graph -->
+                    <div class="graph-section">
+                        <h3>Disease-Symptom Match Graph:</h3>
+                        <div class="chart-container">
+                            <canvas id="diseaseSymptomChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- CVD Risk Indicator -->
+                    <div class="risk-indicator-section">
+                        <h3>CVD Risk Indicator</h3>
+                        <div class="risk-bar-container">
+                            <div class="risk-bar" style="width: ${report.risk_percentage}%; background-color: ${report.risk_color};">
+                                <span class="risk-text">${report.risk_percentage}% - ${report.risk_level}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Clinical Measurements -->
+                    <div class="clinical-section">
+                        <h3>Clinical Measurements:</h3>
+                        <div class="measurements-grid">
+                            ${(report.clinical_measurements || []).map(m => `
+                                <div class="measurement-item">
+                                    <span class="measurement-label">${m.label}</span>
+                                    <span class="measurement-value">${m.value}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <!-- Possible Diagnosis -->
+                    <div class="diagnosis-section">
+                        <h3>Possible Diagnosis:</h3>
+                        <ul class="diagnosis-list">
+                            ${(report.possible_diagnosis || []).map(d => `<li>${d}</li>`).join('')}
+                        </ul>
+                    </div>
+
+                    <!-- Suggested Diagnostic Tests -->
+                    <div class="tests-section">
+                        <h3>Suggested Diagnostic Tests:</h3>
+                        <ul class="tests-list">
+                            ${(report.suggested_tests || []).map(t => `<li>${t}</li>`).join('')}
+                        </ul>
+                    </div>
+
+                    <!-- Risk & Protective Factors -->
+                    <div class="factors-container">
+                        <div class="factors-section">
+                            <h3 style="color: #d62728;">RISK FACTORS</h3>
+                            <ul class="factors-list">
+                                ${(report.risk_factors || []).length > 0 ? (report.risk_factors || []).map(f => `
+                                    <li><strong>${f.feature}:</strong> ${f.value}</li>
+                                `).join('') : '<li>No significant risk factors</li>'}
+                            </ul>
+                        </div>
+
+                        <div class="factors-section">
+                            <h3 style="color: #2ca02c;">PROTECTIVE FACTORS</h3>
+                            <ul class="factors-list">
+                                ${(report.protective_factors || []).length > 0 ? (report.protective_factors || []).map(f => `
+                                    <li><strong>${f.feature}:</strong> ${f.value}</li>
+                                `).join('') : '<li>Monitor regular health habits</li>'}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Recommendations -->
+                    <div class="recommendations-section">
+                        <h3>RECOMMENDATIONS:</h3>
+                        <ol class="recommendations-list">
+                            ${(report.recommendations || []).map(r => `<li>${r}</li>`).join('')}
+                        </ol>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="report-footer">
+                        <p><strong>WARNING:</strong> This is an AI-powered assessment for informational purposes only. This report does not constitute a medical diagnosis. Always consult with qualified healthcare professionals for medical advice and diagnosis.</p>
+                        <p style="margin-top: 15px; color: #666; font-size: 12px;">Report generated: ${new Date().toLocaleString()}</p>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="report-actions">
+                        <button onclick="location.reload()" class="btn-new-patient">New Assessment</button>
+                        <button onclick="window.print()" class="btn-print">Print Report</button>
+                    </div>
+                </div>
+            `;
+
+            reportContainer.innerHTML = html;
+            
+            // Generate disease-symptom chart
+            setTimeout(() => {
+                generateDiseaseSymptomChart(report);
+            }, 100);
+            } catch (error) {
+                console.error('Error displaying report:', error);
+                errorMessage.textContent = `Error displaying report: ${error.message}`;
+                errorSection.style.display = 'block';
+            }
+        }
+
+        function generateDiseaseSymptomChart(report) {
+            try {
+                const ctx = document.getElementById('diseaseSymptomChart');
+                if (!ctx) return;
+
+                const diseases = ['Hypertension', 'Heart Failure', 'Arrhythmia', 'Hyperlipidemia', 'CAD'];
+                const dataValues = [
+                    (report.risk_percentage || 0) * 0.5,
+                    (report.risk_percentage || 0) * 0.6,
+                    (report.risk_percentage || 0) * 0.4,
+                    (report.risk_percentage || 0) * 0.7,
+                    (report.risk_percentage || 0)
+                ];
+
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: diseases,
+                        datasets: [{
+                            label: 'Match Score',
+                            data: dataValues,
+                            backgroundColor: '#2ca02c',
+                            borderColor: '#1a6b1a',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        indexAxis: 'y',
+                        plugins: {
+                            legend: { display: false }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                max: 100
+                            }
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error('Error generating chart:', error);
+            }
+        }
+    </script>
+</body>
+</html>
